@@ -1,0 +1,69 @@
+from tkinter import *
+import random
+scores={
+    "Rock":{"Rock":0,"Paper":-1,"Scissor":1,"Lizard":1,"Spock":-1},
+    "Paper":{"Rock":1,"Paper":0,"Scissor":-1,"Lizard":-1,"Spock":-1},
+    "Scissor":{"Rock":-1,"Paper":1,"Scissor":0,"Lizard":1,"Spock":-1},
+    "Lizard":{"Rock":-1,"Paper":1,"Scissor":-1,"Lizard":0,"Spock":-1},
+    "Spock":{"Rock":1,"Paper":1,"Scissor":1,"Lizard":1,"Spock":0}
+}
+comp_score=0
+player_score=0
+
+def outcome_handler(user_choice):
+    global comp_score
+    global player_score
+    outcomes=["Rock","Paper","Scissor","Lizard","Spock"]
+    random_number=random.randint(0,4)
+    comp_choice=outcomes[random_number]
+    player_choice_label.config(fg="Green",text="Player Choice: "+str(user_choice))
+    comp_choice_label.config(fg="Red",text="Computer Choice: "+str(comp_choice))
+    result=scores[user_choice][comp_choice]
+    if result ==1:
+        player_score= player_score + 1
+        comp_score= comp_score + 1
+        player_score_label.config(text="Player score is "+ str(player_score))
+        outcome_label.config(fg="Magenta",text="Outcome : Player Won!!!")
+    elif result ==0:
+        player_score = player_score + 0
+        player_score_label.config(text="Player score is " + str(player_score))
+        outcome_label.config(fg="Magenta", text="Outcome : Its a tie !!")
+    elif result == -1:
+        player_score = player_score - 1
+        comp_score = comp_score + 1
+        player_score_label.config(text="Player score is " + str(player_score))
+        comp_score_label.config(text="Computer score is " + str(player_score))
+        outcome_label.config(fg="Magenta", text="Outcome :Computer Won !!!")
+
+
+window=Tk()
+window.title("Super Rock Paper Scissors")
+
+#Labels
+Label(window,text="Super Rock Paper Scissors",font=("Times New Roman",20)).grid(row=0,sticky=N,pady=10,padx=200)
+Label(window,text="Select an Option",font=("Times New Roman",14)).grid(row=1, sticky=N)
+player_score_label=Label(window,text="Player: 0",font=("Times New Roman",12))
+player_score_label.grid(row=2, sticky=W)
+comp_score_label=Label(window,text="Computer: 0",font=("Times New Roman",12))
+comp_score_label.grid(row=2, sticky=E)
+player_choice_label=Label(window,font=("Calibri",12))
+player_choice_label.grid(row=3,sticky=W)
+comp_choice_label=Label(window,font=("Calibri",12))
+comp_choice_label.grid(row=3,sticky=E)
+outcome_label= Label(window,font=("Calibri",12))
+outcome_label.grid(row=3, sticky=N)
+
+#Buttons
+Button(window, text="Rock", width=20, command=lambda:outcome_handler("Rock")).grid(row=4,sticky=W,padx=5,pady=5)
+Button(window, text="Paper", width=20, command=lambda:outcome_handler("Paper")).grid(row=4,sticky=N,padx=5,)
+Button(window, text="Scissor", width=20, command=lambda:outcome_handler("Scissor")).grid(row=4,sticky=E,pady=5)
+Button(window, text="Lizard", width=20, command=lambda:outcome_handler("Lizard")).grid(row=5,sticky=W,padx=5,pady=5)
+Button(window, text="Spock", width=20, command=lambda:outcome_handler("Spock")).grid(row=5,sticky=N,padx=8,pady=5)
+
+#Dummy Label
+Label(window).grid(row=6)
+window.mainloop()
+
+
+
+
