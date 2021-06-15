@@ -10,6 +10,8 @@ scores={
 comp_score=0
 player_score=0
 
+/New comment
+
 def outcome_handler(user_choice):
     global comp_score
     global player_score
